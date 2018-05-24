@@ -1,0 +1,57 @@
+body{
+    background-image: url(cosmo.jpg);
+        background-attachment: fixed;
+        background-size: 100%;
+        background-repeat:no-repeat;
+        background-color: #000
+    }
+    
+img {
+	height: 100px;
+	width:100px;
+}
+#main {
+    width:390px;
+    margin:0 auto;
+    text-align:center;
+    font-family: Comic Sans MS, sans-serif, cursive;
+    color:#000009;
+    font-size:17px;
+}
+
+select, input {
+    padding:5px;
+    font-size:17px;
+    margin:5px;
+}
+
+input.placar {
+    width:30px;
+    text-align:center;
+}
+
+table {
+    width:370px;
+    border:0;
+}
+
+table th, table td {
+    padding:3px;
+}
+
+table th {
+    background-color:#313;
+    color:#ffa;    
+}
+
+table td {
+    text-align:center;
+}
+
+#cmp-vencedor {
+    background-color:#afa;
+}
+.regras{
+    font-family: Georgia, serif;
+    font-size:14px;
+}
