@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pedra, Pepel e Tesoura!</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="jokempo.css">
+	<script type="script.js"></script>
+
+</head>
+<body>
+	<div id="main">
+
+    <h1>Pedra, Papel e Tesoura</h1>
+
+
+    <img src="pedra.png" alt="PEDRA"><img src="papel.png" alt="PAPEL"><img src="tesoura.png" alt="TESOURA">
+
+    <br /><br /><br />
+
+    <label for="placar-jogador" id="label-jogador">Jogador</label>
+    <input type="text" id="placar-jogador" class="placar" readonly="readonly" value="0" />
+    VS 
+    
+    <input type="text" id="placar-computador" class="placar" readonly="readonly" value="0" />
+    <label for="placar-computador">Computador</label>
+
+    <br /><br />
+
+    <select id="opcaojogador">
+        <option value=""> -- Escolha a opção -- </option>
+        <option value="pedra"> Pedra </option>
+        <option value="papel"> Papel </option>
+        <option value="tesoura"> Tesoura </option>
+    </select>
+
+    <input type="button" value="JOGAR" id="btn-action" />
+
+    <br /><br /><br />
+
+    <table>
+        <tr>
+            <th id="th-jogador">Jogador</th>
+            <td>&nbsp;</td>
+            <th>Computador</th>
+        </tr>
+        <tr>
+            <td id="cmp-jogador">--</td>
+            <td> X </td>
+            <td id="cmp-computador">--</td>
+        </tr>
+        <tr>
+            <th>Vencedor: </th>
+            <td>&nbsp;</td>
+            <td id="cmp-vencedor">--</td>
+        </tr>        
+    </table>
+
+</div>
+<div class="regras">
+    <p><b>LEGENDA</b></p>
+    <table>
+    <tr>
+        <th>Regra 1</th>
+        <th> Escolha entre Pedra, Papel ou Tesoura</th>
+    </tr>
+    <tr>
+        <th>Regra 2</th>
+        <th>Clique em Jogar</th>
+    </tr>
+    <tr>
+        <th>Regra 3</th>
+        <th>Pedra vence Tesoura<th>
+    </tr><tr>
+        <th>Regra 4</th>
+        <th> Tesoura vence Papel</th>
+    </tr>
+    <tr>
+        <th>Regra 5</th>
+        <th>Papel vence Pedra</th>
+    </tr>
+    <tr>
+        <th>Regra 6</th>
+        <th>Escolhas iguais resultam em empate</th>
+    </tr>
+</table>
+</div>
+<script type="text/javascript">
+	var JOQUEMPO = (function() {
+
+    var 
+    	escolhaJogador, 
+        escolhaComputador, 
+        vencedor, 
+        pontosJogador, 
+        pontosComputador;        
+
+   
+    var setEscolhaJogador = function (escolha) {
+        escolhaJogador = escolha;
+    }
+
+    var getEscolhaJogador = function () {
+        return escolhaJogador;
+    }
+
+    var setEscolhaComputador = function (escolha) {
+        escolhaComputador = escolha;
+    }
+
+    var getEscolhaComputador = function () {
+
+        var escolhaComputador = Math.round(Math.random() * 2);
+        switch (escolhaComputador) {
+            case 0:
+                escolhaComputador = 'pedra';
+                break;
+            case 1:
+                escolhaComputador = 'papel';
+                break
+            case 2:
+                escolhaComputador = 'tesoura';
+                break;
+        } 
+        setEscolhaComputador(escolhaComputador);
+        return escolhaComputador;
+
+    }
+
+    var getVencedor = function () {
+
+        if (escolhaJogador == 'pedra') {
+
+            if (escolhaComputador == 'pedra') {
+                vencedor = 'empate';
+            } else if (escolhaComputador == 'papel') {
+                vencedor = 'computador';
+            } else if (escolhaComputador == 'tesoura') {
+                vencedor = 'jogador';
+            }
+
+        } else if (escolhaJogador == 'papel') {
+
+            if (escolhaComputador == 'pedra') {
+                vencedor = 'jogador';
+            } else if (escolhaComputador == 'papel') {
+                vencedor = 'empate';
+            } else if (escolhaComputador == 'tesoura') {
+                vencedor = 'computador';
+            }
+
+        } else if (escolhaJogador == 'tesoura') {
+
+            if (escolhaComputador == 'pedra') {
+                vencedor = 'computador';
+            } else if (escolhaComputador == 'papel') {
+                vencedor = 'jogador';
+            } else if (escolhaComputador == 'tesoura') {
+                vencedor = 'empate';
+            }
+
+        } 
+
+        if (vencedor == 'jogador') {
+            if (getPontosJogador() != null) {
+            	setPontosJogador(getPontosJogador() + 1);	
+            } else {
+            	setPontosJogador(1);
+            }            
+        } else if (vencedor == 'computador') {
+        	if (getPontosComputador() != null) {
+            	setPontosComputador(getPontosComputador() + 1);	
+            } else {
+            	setPontosComputador(1);
+            } 
+        }         
+
+        return vencedor;
+
+    }
+    
+    var getPontosComputador = function () {
+    	return pontosComputador;
+    }
+    
+    var setPontosComputador = function  (pontos) {
+    	pontosComputador = pontos;
+    }
+    
+    var getPontosJogador = function  () {
+    	return pontosJogador;
+    }
+    
+    var setPontosJogador = function  (pontos) {
+    	pontosJogador = pontos;
+    }
+
+    return {
+       
+        setEscolhaJogador : setEscolhaJogador,
+        getEscolhaComputador : getEscolhaComputador,
+        getVencedor : getVencedor,
+        setPontosComputador: setPontosComputador,
+		setPontosJogador: setPontosJogador,
+        getPontosComputador: getPontosComputador,
+		getPontosJogador: getPontosJogador
+    }
+
+})()
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+    JOQUEMPO.setPontosComputador(0);
+    JOQUEMPO.setPontosJogador(0);
+
+    document.getElementById("btn-action").onclick = function () {
+
+        var escolhaJogador = document.getElementById("opcaojogador").value;
+        
+        if (escolhaJogador == '') {
+            alert('Por gentileza escolha uma opção válida: Pedra, Papel ou Tesoura!');
+            return false;
+        }
+        
+        document.getElementById("cmp-jogador").innerHTML = capitalizeFirstLetter(escolhaJogador);
+        JOQUEMPO.setEscolhaJogador(escolhaJogador);
+        document.getElementById("cmp-computador").innerHTML = capitalizeFirstLetter(JOQUEMPO.getEscolhaComputador());
+        document.getElementById("cmp-vencedor").innerHTML = capitalizeFirstLetter(JOQUEMPO.getVencedor());
+		document.getElementById("placar-jogador").value = JOQUEMPO.getPontosJogador();
+        document.getElementById("placar-computador").value =  JOQUEMPO.getPontosComputador();
+        
+	
+    }
+    
+</script>
+
+</body>
+</html>
